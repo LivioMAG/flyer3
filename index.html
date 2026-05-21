@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visualize Estate – Produktflyer</title>
+  <style>
+    :root {
+      --black: #111111;
+      --dark: #1d2326;
+      --muted: #6f7477;
+      --line: #ded8cf;
+      --gold: #c6a171;
+      --bg: #f7f5f1;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #e9e5de;
+      font-family: Inter, Helvetica, Arial, sans-serif;
+      color: var(--black);
+    }
+
+    .page {
+      width: 210mm;
+      display: flex;
+      flex-direction: column;
+      min-height: 297mm;
+      margin: 24px auto;
+      background: var(--bg);
+      padding: 18mm;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 70px rgba(0, 0, 0, 0.18);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 28px;
+    }
+
+    .logo {
+      width: 250px;
+      height: auto;
+    }
+
+    .tag {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+      margin-bottom: 0;
+    }
+
+    .image-card {
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 16 / 9;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .image-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    
+    .headline-wrap {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      padding-top: 18px;
+      padding-bottom: 24px;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      margin: 0;
+      text-align: center;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 48px;
+      line-height: 0.98;
+      font-weight: 400;
+      letter-spacing: -0.035em;
+      color: var(--dark);
+    }
+
+    .accent {
+      color: var(--gold);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      font-size: 11px;
+      line-height: 1.2;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 0 0 14px;
+      font-weight: 700;
+    }
+
+    .body-text {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--dark);
+      margin: 0;
+    }
+
+    .steps {
+      display: grid;
+      gap: 12px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .num {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .step strong {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 3px;
+      color: var(--black);
+    }
+
+    .step span {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 28px 0 34px;
+    }
+
+    .benefit {
+      min-height: 82px;
+      background: rgba(255,255,255,0.56);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .benefit strong {
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 7px;
+      color: var(--dark);
+    }
+
+    .usp-icon {
+      width: 22px;
+      height: 22px;
+      flex: 0 0 22px;
+      color: var(--gold);
+    }
+
+    .benefit span {
+      font-size: 11px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .quote {
+      border-left: 2px solid var(--gold);
+      padding-left: 18px;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 20px;
+      line-height: 1.35;
+      color: var(--dark);
+      margin: 4px 0 0;
+    }
+
+    .footer {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 28px;
+      align-items: center;
+      background: var(--dark);
+      color: var(--white);
+      padding: 22px 24px;
+      margin-top: 0;
+    }
+
+    .cta-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 26px;
+      line-height: 1.05;
+      margin: 0 0 8px;
+      font-weight: 400;
+    }
+
+    .cta-text {
+      font-size: 12px;
+      line-height: 1.55;
+      margin: 0;
+      color: rgba(255,255,255,0.72);
+    }
+
+    .contact-person h3 {
+      margin: 0 0 10px;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 100px;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .contact-meta {
+      font-size: 12px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.9);
+      text-align: left;
+    }
+
+    .contact-meta a {
+      color: var(--white);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.35);
+    }
+
+    .contact-layout img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .bottom-spacer {
+      flex: 1;
+      min-height: 26px;
+    }
+
+    .small-note {
+      position: absolute;
+      bottom: 7mm;
+      left: 18mm;
+      right: 18mm;
+      font-size: 8.5px;
+      color: #8d8d8d;
+      display: flex;
+      justify-content: space-between;
+      letter-spacing: 0.04em;
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+      .page {
+        margin: 0;
+        box-shadow: none;
+        width: 210mm;
+        min-height: 297mm;
+      }
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <img class="logo" src="logo.png" alt="Visualize Estate Logo" />
+      <div class="tag">
+        Virtual Staging<br />Virtual Cleaner<br />Virtual Renovation
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="image-card floorplan">
+        <img src="i.jpg" alt="Vorher Bild" />
+      </div>
+      <div class="image-card floorplan">
+        <img src="o.png" alt="Virtuelle Visualisierung" />
+      </div>
+    </section>
+
+    <section class="headline-wrap">
+      <h1>Virtuelle Immobilien-<br />Visualisierung neu gedacht<span class="accent">.</span></h1>
+    </section>
+
+    <section class="grid">
+      <div>
+        <h2>Für Makler, Berater & Architekten</h2>
+        <p class="body-text">
+          Der erste Eindruck entscheidet – besonders bei Immobilien. 
+          Mit modernen virtuellen Lösungen präsentieren Sie Objekte professionell, emotional und verkaufsstark. 
+          Leere Räume wirken durch Virtual Staging wohnlich und einladend, wodurch Interessenten sich die Immobilie besser vorstellen können. 
+          Mit Virtual Cleaner entfernen wir störende Möbel, persönliche Gegenstände oder Unordnung digital und schaffen einen klaren, gepflegten Eindruck. 
+          Durch Virtual Renovation zeigen wir realistische Modernisierungs- und Umbauideen, noch bevor eine Renovation umgesetzt wird.
+         
+        </p>
+      </div>
+
+      <div>
+        <h2>So funktioniert es</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <strong>Bilder senden</strong>
+              <span>Laden Sie Bilder der Immobilie sowie Angaben zu Ihren gewünschten Anpassungen hoch.</span>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">2.1</div>
+            <div>
+              <strong>Unsere Bearbeitung</strong>
+              <span>Senden Sie uns Ihre Bilder ein - wir übernehmen die Bearbeitung und liefern die fertigen Resultate.</span>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">2.2</div>
+            <div>
+              <strong>Eigenständige Bearbeitung</strong>
+              <span>Erhalten Sie Zugang zu unserem Programm und bearbeiten Sie Ihre Bilder selbstständig und flexibel.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="benefits">
+      <div class="benefit">
+        <strong>
+          <svg class="usp-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 13h16v5H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M6 13V9a3 3 0 013-3h6a3 3 0 013 3v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M7 18v2M17 18v2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          Virtual Staging
+        </strong>
+        <span>Leere Räume werden realistisch möbliert und hochwertig visualisiert</span>
+      </div>
+
+      <div class="benefit">
+        <strong>
+          <svg class="usp-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 19l4-11h6l4 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M8 13h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M18.5 4.5l.7 1.6 1.6.7-1.6.7-.7 1.6-.7-1.6-1.6-.7 1.6-.7.7-1.6z" fill="currentColor"/>
+          </svg>
+          Virtual Cleaner
+        </strong>
+        <span>Möbel, persönliche Gegenstände oder störende Elemente werden realistisch entfernt.</span>
+      </div>
+
+      <div class="benefit">
+        <strong>
+          <svg class="usp-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14.5 4.5l5 5-9.8 9.8H4.7v-5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M13 6l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M5 20h15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          Virtual Renovation
+        </strong>
+        <span>Renovationen und Modernisierungen werden realistisch und hochwertig visualisiert.</span>
+      </div>
+
+      <div class="benefit">
+        <strong>
+          <svg class="usp-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M12 7v5l3.2 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Schnelle Umsetzung
+        </strong>
+        <span>Unsere Bearbeitung erfolgt innerhalb eines halben Arbeitstags</span>
+      </div>
+
+      <div class="benefit">
+        <strong>
+          <svg class="usp-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 18.5h16M7 15V9.5M12 15V6.5M17 15V11.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M6.5 9.5l4.7-3.3 5.3 4.1 2.9-2.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Optimaler Einsatz
+        </strong>
+        <span>Sie entscheiden, ob Sie die Bearbeitung selbst durchführen oder an uns auslagern möchten.</span>
+      </div>
+
+      <div class="benefit">
+        <strong>
+          <svg class="usp-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="4" y="5" width="16" height="14" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M8 10.2l2.1 2.1L16.2 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 15h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          Kostengünstig
+        </strong>
+        <span>Ein einfaches Inserat mit ca. 10 Bildern ist bereits ab CHF 169.– möglich.</span>
+      </div>
+    </section>
+
+    <div class="quote">
+      «Immobilien werden emotional entschieden – realistische Visualisierungen machen Räume erlebbar.»
+    </div>
+
+    <div class="bottom-spacer"></div>
+
+    <footer class="footer">
+      <div>
+        <p class="cta-title">Jetzt Projekt anfragen</p>
+        <p class="cta-text">
+         Haben Sie Interesse an Virtual Staging, Virtual Cleaning oder Virtual Renovation? Kontaktieren Sie uns für ein kurzes Gespräch. Gemeinsam besprechen wir den erfolgreichsten Weg für Ihre Immobilienvisualisierung.
+        </p>
+      </div>
+
+      <section class="contact-person">
+        <h3>Ihr Ansprechpartner</h3>
+        <div class="contact-layout">
+          <div class="contact-meta">
+            <strong>Davide Greco</strong><br />
+            Immobilien-Visualisierung<br />
+            <a href="mailto:davide@voltlog.ch">davide@voltlog.ch</a><br />
+            <a href="tel:+41788963372">+41 78 896 33 72</a><br />
+          </div>
+          <img src="davide.png" alt="Ansprechpartner Davide Greco" />
+        </div>
+      </section>
+    </footer>
+
+    <div class="small-note">
+      <span>Visualize Estate by Voltlog</span>
+      <span>Virtual Staging · Virtual Cleaner · Virtual Renovation</span>
+    </div>
+  </main>
+</body>
+</html>
